@@ -76,7 +76,8 @@ module Dentaku
       end
 
       def identifier
-        new(:identifier, '\w+\b', lambda {|raw| raw.strip.downcase.to_sym })
+        # TODO(AMK): extract this as a setting and contribute back
+        new(:identifier, '[\w.]+\b', lambda {|raw| raw.strip.downcase.to_sym })
       end
     end
   end

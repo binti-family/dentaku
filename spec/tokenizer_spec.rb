@@ -12,7 +12,7 @@ describe Dentaku::Tokenizer do
     expect(tokens.map(&:category)).to eq([:numeric, :operator, :numeric])
     expect(tokens.map(&:value)).to eq([1, :add, 1])
   end
-  
+
   it 'tokenizes comparison with =' do
     tokens = tokenizer.tokenize('number = 5')
     expect(tokens.map(&:category)).to eq([:identifier, :comparator, :numeric])
@@ -95,6 +95,13 @@ describe Dentaku::Tokenizer do
     expect(tokens.length).to eq(3)
     expect(tokens.map(&:category)).to eq([:identifier, :comparator, :numeric])
     expect(tokens.map(&:value)).to eq([:andover, :lt, 10])
+  end
+
+  it 'allows dots in identifier names' do
+    tokens = tokenizer.tokenize('bob.dole + 5')
+    expect(tokens.length).to eq(3)
+    expect(tokens.map(&:category)).to eq([:identifier, :operator, :numeric])
+    expect(tokens.map(&:value)).to eq([:"bob.dole", :add, 5])
   end
 
   describe 'functions' do
