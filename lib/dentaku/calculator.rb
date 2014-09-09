@@ -36,6 +36,11 @@ module Dentaku
       end
     end
 
+    def dependencies(expression)
+      # unresolved dependencies
+      Expression.new(expression, @memory).identifiers
+    end
+
     def store(key_or_hash, value=nil)
       restore = @memory.dup
 

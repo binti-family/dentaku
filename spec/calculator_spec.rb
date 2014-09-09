@@ -8,6 +8,18 @@ describe Dentaku::Calculator do
     expect(calculator.evaluate('7+3')).to eq(10)
   end
 
+  describe 'dependencies' do
+    it 'is empty when no dependencies are needed' do
+      expect(calculator.dependencies('7+3')).to eq([])
+    end
+    it 'ignores things already in memory' do
+      expect(with_memory.dependencies('7 + apples')).to eq([])
+    end
+    it 'reports dependencies when found' do
+      expect(with_memory.dependencies('(carrots + apples) / bananas')).to eq([:carrots, :bananas])
+    end
+  end
+
   describe 'memory' do
     it { expect(calculator).to be_empty }
     it { expect(with_memory).not_to be_empty   }
